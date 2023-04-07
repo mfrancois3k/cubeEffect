@@ -1,0 +1,298 @@
+@import "./animation";
+// Import mixins here, make sure the path is correct
+
+// Variables
+$bg-color: #eee;
+$text-color: #000;
+$hover-color: #ff0000;
+$duration: 1s;
+$text-size: 14px;
+$cube-size: 100px;
+$animation-duration: 10s;
+$width: 53px;
+
+
+// Body style
+body {
+  background-color: $bg-color;
+  color: $text-color;
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  perspective: 500px;
+  perspective-origin: 50% calc(50% - 150px);
+  
+}
+
+.wrap { 
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+
+.scene {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.banner {
+  display: flex;
+  transform-style: preserve-3d;
+  animation: spin 24s infinite linear;
+  position: relative;
+ top: -40%;
+  left: 50%;
+}
+
+
+.cube {
+  margin-top: 100px;
+  position: relative;
+ top: -50%;
+ left: -50%;
+transform: translate3d(-50%, -50%, 0);
+  height: 200px;
+  width: 200px;
+  transform-style: preserve-3d;
+  animation: spin 20s infinite linear;
+}
+
+@keyframes rotate {
+  to { transform: rotateY(-360deg); }
+}
+
+
+.cube div {
+  margin: -100px ;
+  margin-inline: auto;
+  opacity: 0.2;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+   width: 100%;
+  opacity: 0.6;
+  background-color: $text-color;
+  border: solid 3px #3b3131;
+  color: #fff;
+  font: 12px verdana;
+  text-align: center;
+  @include transition(transform 0.2s ease-in);
+}
+
+.cube div:hover {
+  background-color: $hover-color;
+}
+
+
+.panel::before {
+  position: absolute;
+  left: var(--left);
+  
+  content: "cube cube cube cube cube cube";
+  font-size: 96px;
+  width: max-content;
+  color: hsl(var(--hue), 75%, 75%);
+}
+
+
+.panel {
+  position: absolute;
+  transform: translate(-50%, -50%) rotateY(var(--angle)) translateZ(190px); 
+  width: $width;
+  height: 120px;
+  // border: 1px solid white;
+  // background-color: #fff4;
+  overflow: hidden;
+}
+
+
+.screen {
+  position: absolute;
+  width: 300px; height: 200px;
+ transform: translate(-50%, -50%);
+}
+
+
+
+
+@for $i from 0 to 24 {
+  .panel:nth-child(#{$i + 1}) {
+    --left: #{$width * $i * -1};
+    --hue: #{360 / 24 * $i};
+    --angle: #{360deg / 24 * $i};
+  }
+}
+
+
+.face {
+ position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.front {
+  @include transform(translateZ(100px));
+  background-image: url(`https://source.unsplash.com/400x1000/?warrior`)
+}
+.back {
+  @include transform(translateZ(-100px) rotateY(180deg));
+}
+.right {
+  @include transform(rotateY(-270deg) translateX(100px));
+  transform-origin: top right;
+}
+.left {
+  @include transform(rotateY(270deg) translateX(-100px));
+  transform-origin: center left;
+}
+.top {
+  @include transform(rotateX(-270deg) translateY(-100px));
+  transform-origin: top center;
+}
+.bottom {
+  @include transform(rotateX(270deg) translateY(100px));
+  transform-origin: bottom center;
+}
+
+
+.wrap:hover .front {
+  @include transform(translateZ(200px));
+}
+.wrap:hover .back {
+  @include transform(translateZ(-200px) rotateY(180deg));
+}
+.wrap:hover .right {
+  @include transform(rotateY(-270deg) translateZ(100px) translateX(100px));
+}
+.wrap:hover .left {
+  @include transform(rotateY(270deg) translateZ(100px) translateX(-100px));
+}
+.wrap:hover .top {
+  @include transform(rotateX(-270deg) translateZ(100px) translateY(-100px));
+}
+.wrap:hover .bottom {
+  @include transform(rotateX(270deg) translateZ(100px) translateY(100px));
+}
+
+@keyframes orbit {
+   from {
+    @include rotate(0deg);
+    @include translate(120deg);
+  }
+  to {
+    @include rotate(360deg);
+    @include translate(0deg);
+   }
+}
+
+@keyframes spin {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+// @keyframes orbit {
+//   from {
+//     transform: translateZ(0) rotateY(0deg);
+//   }
+//   to {
+//     transform: translateZ(-100px) rotateY(360deg);
+//   }
+// }
+
+// @include keyframes(orbit) {
+//   0% {@include transform(translateX(150px) scale(0.0));}
+//   10% {@include transform(translateX(160px) scale(0.15));}
+//   20% {@include transform(translateX(130px) scale(0.2));}
+//   30% {@include transform(translateX(100px) scale(1));}
+//   40% {@include transform(translateX(60px) scale(0.6));}
+//   50% {@include transform(translateX(0px) scale(0.4));}
+//   60% {@include transform(translateX(-60px) scale(0.35));}
+//   70% {@include transform(translateX(-100px) scale(0.3));}
+//   80% {@include transform(translateX(-130px) scale(0.2));}
+//   90% {@include transform(translateX(-160px) scale(0.15));}
+//  100% {@include transform(translateX(-150px) scale(0.0));}
+  
+// }
+
+// @keyframes orbit {
+//   0%   { transform: translateX(150px)
+//                     scale(0.0);
+//   }
+//   10%  { transform: translateX(160px)
+//                     scale(0.15);
+//   }
+//   20%  { transform: translateX(130px)
+//                     scale(0.2);     
+//   }
+//   30% { transform: translateX(100px)
+//                    scale(1);
+//   }
+//   40% { transform: translateX(60px)
+//                    scale(0.60);
+//   }
+//   50% { transform: translateX(0px)
+//                    scale(0.4);
+//   }
+//   60% { transform: translateX(-60px)
+//                    scale(0.35); 
+//   }
+//   70% { transform: translateX(-100px)
+//                    scale(0.3); 
+//   }
+//   80% { transform: translateX(-130px)
+//                    scale(0.2);
+//   }
+//   90% { transform: translateX(-160px)
+//                    scale(0.15); 
+//   }
+//   100% { transform: translateX(-150px)
+//                     scale(0.0);
+//   }
+// }
+
+// @include keyframes(rotate) {
+//   to   { transform: rotateY(-360deg); }
+// }
+
+
+// @include keyframes(bganim) {
+//   from { background-position: 0px; }
+//   to   { background-position: 80px; }
+// }
+
+
+
+
+// @include keyframes(rotate) {
+//   from {
+//     @include transform(rotateX(0deg) rotateY(0deg));
+//   }
+//   to {
+//     @include transform(rotateX(360deg) rotateY(360deg));
+//   }
+// }
+
+
+
+// .front,
+// .back,
+// .right,
+// .left,
+// .top,
+// .bottom {
+//   position: absolute;
+//   padding: 10px;
+//   box-sizing: border-box;
+//   height: 100%;
+//   width: 100%;
+//   opacity: 0.6;
+//   background-color: #000;
+//   border: solid 3px #eee;
+//   color: #fff;
+//   font: 12px verdana;
+//   text-align: center;
+// }

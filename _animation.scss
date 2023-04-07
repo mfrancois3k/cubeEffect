@@ -1,0 +1,227 @@
+
+// ANIMATIONS / TRANSITIONS / TRANSFORMS
+@mixin transition ($string) {
+    -webkit-transition: $string;  
+    -moz-transition:    $string;
+    -ms-transition:     $string; 
+    -o-transition:      $string;  
+  }
+  @mixin transition-duration($duration: 0.2s) {
+    -webkit-transition-duration: $duration;
+    -moz-transition-duration:    $duration;
+    -ms-transition-duration:     $duration;
+    -o-transition-duration:      $duration;
+  }
+  @mixin animate ($string) {
+    -webkit-animation: $string;
+    -moz-animation:    $string;
+  }
+  
+  @mixin transform($string){
+    -webkit-transform: $string;
+    -moz-transform:    $string;
+    -ms-transform:     $string;
+    -o-transform:      $string;
+  }
+  @mixin scale ($factor) {
+    zoom: $factor;
+    -webkit-transform: scale($factor);
+    -moz-transform:    scale($factor);
+    -ms-transform:     scale($factor);
+    -o-transform:      scale($factor);
+  }
+  @mixin rotate ($deg) {
+    -webkit-transform: rotate($deg + deg);
+    -moz-transform:    rotate($deg + deg);
+    -ms-transform:     rotate($deg + deg);
+    -o-transform:      rotate($deg + deg);
+  }
+  @mixin skew ($deg, $deg2) {
+    -webkit-transform: skew($deg, $deg2);
+    -moz-transform:    skew($deg, $deg2);
+    -ms-transform:     skew($deg, $deg2);
+    -o-transform:      skew($deg, $deg2);
+  }
+  @mixin translate ($x: 0, $y: 0) {
+    -webkit-transform: translate($x, $y);
+    -moz-transform:    translate($x, $y);
+    -ms-transform:     translate($x, $y);
+    -o-transform:      translate($x, $y);
+  }
+  @mixin translate3d ($x, $y: 0, $z: 0) {
+    -webkit-transform: translate3d($x, $y, $z);
+    -moz-transform:    translate3d($x, $y, $z);
+    -ms-transform:     translate3d($x, $y, $z);
+    -o-transform:      translate3d($x, $y, $z);
+  }
+  @mixin perspective ($value: 1000) {
+    -webkit-perspective:  $value;
+    -moz-perspective:     $value;
+    -ms-perspective:      $value;
+  }
+  @mixin transform-origin ($x: center, $y: center) {
+    -webkit-transform-origin: $x $y;
+    -moz-transform-origin:    $x $y;
+    -ms-transform-origin:     $x $y;
+    -o-transform-origin:      $x $y;
+  }
+  
+  @mixin transition-delay($duration){
+    -webkit-transition-delay: $duration;
+    -moz-transition-delay: $duration;
+    -o-transition-delay: $duration;
+    -ms-transition-delay: $duration;
+    transition-delay: $duration;
+  }
+  
+  @mixin transition-delay2($duration, $duration2){
+    -webkit-transition-delay: $duration, $duration2;
+    -moz-transition-delay: $duration, $duration2;
+    -o-transition-delay: $duration, $duration2;
+    -ms-transition-delay: $duration, $duration2;
+    transition-delay: $duration, $duration2;
+  }
+  
+  @mixin ease-out-quint($ms) {
+      -webkit-transition: all $ms + ms cubic-bezier(0.230, 1.000, 0.320, 1.000); 
+      -moz-transition: all $ms +  ms cubic-bezier(0.230, 1.000, 0.320, 1.000); 
+      -ms-transition: all $ms +  ms cubic-bezier(0.230, 1.000, 0.320, 1.000); 
+      -o-transition: all $ms +  ms cubic-bezier(0.230, 1.000, 0.320, 1.000); 
+      transition: all $ms + ms cubic-bezier(0.230, 1.000, 0.320, 1.000); /* easeOutQuint */
+  }
+  
+  @mixin ease-out-back($ms) {
+      -webkit-transition: all $ms + ms cubic-bezier(0.175, 0.885, 0.320, 1); /* older webkit */
+      -webkit-transition: all $ms + ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+      -moz-transition: all $ms + ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+      -ms-transition: all $ms + ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+      -o-transition: all $ms + ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+      transition: all $ms + ms cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+  }
+  
+  @mixin ease-out-expo($ms) {
+      -webkit-transition: all $ms + ms cubic-bezier(0.190, 1.000, 0.220, 1.000); 
+      -moz-transition: all $ms + ms cubic-bezier(0.190, 1.000, 0.220, 1.000); 
+      -ms-transition: all $ms + ms cubic-bezier(0.190, 1.000, 0.220, 1.000); 
+      -o-transition: all $ms + ms cubic-bezier(0.190, 1.000, 0.220, 1.000); 
+      transition: all $ms + ms cubic-bezier(0.190, 1.000, 0.220, 1.000); /* easeOutExpo */
+  }
+  
+  @mixin animation($animate...) {
+      $max: length($animate);
+      $animations: '';
+  
+      @for $i from 1 through $max {
+          $animations: #{$animations + nth($animate, $i)};
+  
+          @if $i < $max {
+              $animations: #{$animations + ", "};
+          }
+      }
+      -webkit-animation: $animations;
+      -moz-animation:    $animations;
+      -o-animation:      $animations;
+      animation:         $animations;
+  }
+  
+  @mixin keyframes($animationName) {
+      @-webkit-keyframes #{$animationName} {
+          @content;
+      }
+      @-moz-keyframes #{$animationName} {
+          @content;
+      }
+      @-o-keyframes #{$animationName} {
+          @content;
+      }
+      @keyframes #{$animationName} {
+          @content;
+      }
+  }
+  
+  @mixin mt($time){
+    transition: all $time ease;
+  }
+  
+  @mixin defaultTransition($properties...) {
+    @include transition($properties, $defaultTiming, $defaultEasing);
+  }
+  
+  @mixin noTransition($properties...) {
+    @include transition($properties, 0, $defaultEasing);
+  }
+  
+  @mixin linkWithIconTransition($timing: $defaultTiming, $easing: $defaultEasing) {
+    @include transition(color, $timing, $easing);
+  
+    .svg {
+      @include transition(fill, stroke, $timing, $easing);
+    }
+  
+    path {
+      @include transition(fill, stroke, $timing, $easing);
+    }
+  }
+  
+  
+  @mixin scale($scale) {
+       transform: scale($scale);
+      -webkit-transform: scale($scale);
+      -moz-transform: scale($scale);
+   }
+  
+  @mixin rotate ($deg) {
+    -webkit-transform: rotate($deg);
+    -moz-transform: 	 rotate($deg);
+    -ms-transform: 		 rotate($deg);
+    -o-transform: 		 rotate($deg);
+  }
+  
+  //https://github.com/selfishprimate/gerillass/blob/master/scss/library/_loadify.scss
+  @mixin loadify($params...) {
+    @if not & {
+      @if length($params) == 0 or (length($params) == 1 and nth($params, 1) == "init") {
+        @keyframes loadify {
+          to {
+            opacity: 1;
+            visibility: visible;
+            backface-visibility: visible;
+          }
+        }
+        %loadify {
+          opacity: 0;
+          visibility: hidden;
+          backface-visibility: hidden;
+          animation-name: loadify;
+          animation-fill-mode: forwards;
+        }
+      } @else if (length($params) == 1 and nth($params, 1) != "init") or (length($params) == 1 and type-of(nth($params, 1)) != "string") {
+        @error "#{nth($params, 1)} is not a valid argument. Please pass `init` as an argument to initialize the effect or do not pass any argument at all.";
+      } @else if length($params) > 1 {
+        @error "Only one argument is allowed when you call this mixin at the root of your stylesheet! Please pass `init` as an argument to initialize the effect or do not pass any argument at all.";
+      }
+    } @else if & {
+      @extend %loadify;
+      @if length($params) == 0 {
+        animation-delay: 0.2s;
+        animation-duration: 0.5s;
+      } @else if length($params) == 1 {
+        animation-delay: #{__isTime(nth($params, 1))};
+        animation-duration: 0.5s;
+      } @else if length($params) == 2 {
+        animation-delay: #{__isTime(nth($params, 1))};
+        animation-duration: #{__isTime(nth($params, 2))};
+      } @else if length($params) > 2 {
+        @error "You cannot pass more than two arguments.";
+      }
+    }
+  }
+  
+  @mixin hover($spd) {
+      @include ease-out-quint($spd);
+      &:hover {
+          opacity: $hoverOpacity;
+      }
+  }
+  
+  
